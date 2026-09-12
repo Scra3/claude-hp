@@ -159,7 +159,7 @@ func label(_ s: String, _ font: NSFont, _ color: NSColor, at p: NSPoint,
 func fmtCountdown(_ d: Date) -> String {
     let s = max(0, Int(d.timeIntervalSinceNow))
     let h = s / 3600, m = (s % 3600) / 60
-    if h >= 24 { return "\(h / 24)J \(h % 24)H" }
+    if h >= 24 { return "\(h / 24)D \(h % 24)H" }
     if h > 0 { return String(format: "%d:%02d", h, m) }
     return "\(m)M"
 }
