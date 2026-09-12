@@ -1,7 +1,7 @@
 import AppKit
 import Security
 
-// MARK: - Données
+// MARK: - Data
 
 struct Gauge {
     var name: String
@@ -13,8 +13,8 @@ struct Gauge {
 enum API {
     static let home = URL(fileURLWithPath: NSHomeDirectory())
 
-    /// Jeton OAuth de Claude Code. macOS demande l'autorisation au premier accès.
-    /// N'est jamais journalisé ni écrit sur disque.
+    /// Claude Code's OAuth token. macOS asks for permission on first access.
+    /// Never logged, never written to disk.
     private static func token() -> String? {
         let q: [String: Any] = [
             kSecClass as String: kSecClassGenericPassword,
@@ -49,12 +49,12 @@ enum API {
             let name: String
             switch kind {
             case "session": name = "SESSION 5H"
-            case "weekly_all": name = "SEMAINE 7J"
+            case "weekly_all": name = "WEEK 7D"
             default:
                 let scope = row["scope"] as? [String: Any]
                 let model = scope?["model"] as? [String: Any]
                 guard let display = model?["display_name"] as? String else { return nil }
-                name = display.uppercased() + " 7J"
+                name = display.uppercased() + " 7D"
             }
             let reset = (row["resets_at"] as? String).flatMap { stamp.date(from: $0) }
             return Gauge(name: name, usedPct: pct, resetsAt: reset)
@@ -210,7 +210,7 @@ final class HUDView: NSView {
         RunLoop.main.add(anim!, forMode: .common)
     }
 
-    // MARK: dessin
+    // MARK: drawing
 
     override func draw(_ dirty: NSRect) {
         guard let ctx = NSGraphicsContext.current else { return }
@@ -272,12 +272,12 @@ final class HUDView: NSView {
                   at: NSPoint(x: tx, y: y - 17), tracking: 2.4, rightAlign: true)
         } else {
             label("—", din(34), Ink.textDim, at: NSPoint(x: tx, y: y - 4), rightAlign: true)
-            label(g == nil ? "EN ATTENTE" : "", din(10), Ink.textDim,
+            label(g == nil ? "NO SIGNAL" : "", din(10), Ink.textDim,
                   at: NSPoint(x: tx, y: y - 17), tracking: 1.6, rightAlign: true)
         }
     }
 
-    // MARK: pièces de barre
+    // MARK: bar parts
 
     private func drawTrack(_ r: NSRect) {
         let p = para(r)
@@ -408,7 +408,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
 
         refresh()
         Timer.scheduledTimer(withTimeInterval: 30, repeats: true) { _ in self.refresh() }
-        // Le compte à rebours RESET doit avancer même quand les pourcentages ne bougent pas.
+        // The RESET countdown has to keep moving even when the percentages do not.
         Timer.scheduledTimer(withTimeInterval: 20, repeats: true) { _ in self.view.needsDisplay = true }
     }
 
@@ -417,7 +417,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
     }
 
     private func refresh() {
-        // SecItemCopyMatching peut ouvrir le dialogue trousseau et bloquer : jamais sur le thread principal.
+        // SecItemCopyMatching can open the keychain dialog and block: never on the main thread.
         DispatchQueue.global(qos: .utility).async {
             API.fetch { gauges in
             DispatchQueue.main.async {
@@ -450,12 +450,12 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
 
     func showMenu(_ e: NSEvent, in v: NSView) {
         let m = NSMenu()
-        let launch = NSMenuItem(title: "Lancer au démarrage", action: #selector(toggleLaunch), keyEquivalent: "")
+        let launch = NSMenuItem(title: "Launch at login", action: #selector(toggleLaunch), keyEquivalent: "")
         launch.target = self
         launch.state = FileManager.default.fileExists(atPath: agent.path) ? .on : .off
         m.addItem(launch)
         m.addItem(.separator())
-        m.addItem(NSMenuItem(title: "Quitter", action: #selector(NSApplication.terminate(_:)), keyEquivalent: "q"))
+        m.addItem(NSMenuItem(title: "Quit", action: #selector(NSApplication.terminate(_:)), keyEquivalent: "q"))
         NSMenu.popUpContextMenu(m, with: e, for: v)
     }
 

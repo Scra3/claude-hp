@@ -1,0 +1,13 @@
+name = "claudehp-site"
+compatibility_date = "2026-09-12"
+
+# A custom domain rather than a route: claudehp.heymossy.com has no DNS record yet, so
+# Cloudflare creates and proxies it here. heymossy.com itself uses a route instead,
+# because a parked Hostinger record still sits on it.
+[[routes]]
+pattern = "claudehp.heymossy.com"
+custom_domain = true
+
+# No `main`: this worker has no code, it only serves files.
+[assets]
+directory = "site"

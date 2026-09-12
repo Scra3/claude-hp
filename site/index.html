@@ -95,7 +95,10 @@ code,kbd{font-family:var(--mono);font-size:.92em}
 .hud-timer .plate{font-size:14px;color:var(--dim);letter-spacing:.3em;margin-top:6px}
 .hud-right{text-align:right;padding-bottom:6px}
 .hud-right .plate{font-size:22px}
-.hud-right .plate small{display:block;font-size:11px;color:var(--dim);letter-spacing:.3em;margin-top:8px}
+.hud-right .plate .gh{display:inline-block;font-size:17px;letter-spacing:.18em;margin-top:12px;border:0;color:var(--health-hi);box-shadow:inset 0 0 0 2px var(--chrome-lo);padding:11px 18px 10px 16px;transform:skewX(var(--skew))}
+.hud-right .plate .gh span{display:inline-flex;align-items:center;gap:10px;transform:skewX(calc(var(--skew) * -1))}
+.hud-right .plate .gh svg{width:22px;height:22px;flex:none}
+.hud-right .plate .gh:hover{background:var(--health-hi);color:#0a0b0e;box-shadow:none}
 
 /* ---------- stage ---------- */
 .stage{margin:40px 0 0}
@@ -246,7 +249,7 @@ footer .fine{flex-basis:100%;max-width:var(--measure);font-size:13px;line-height
     <div class="plate">Reset</div>
   </div>
   <div class="hud-right">
-    <div class="plate">ClaudeHP<small>macOS · Swift</small></div>
+    <div class="plate">ClaudeHP<a class="gh" href="https://github.com/Scra3/claude-hp"><span><svg viewBox="0 0 16 16" aria-hidden="true"><path fill="currentColor" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8"/></svg>GitHub</span></a></div>
   </div>
 </header>
 
@@ -273,7 +276,7 @@ footer .fine{flex-basis:100%;max-width:var(--measure);font-size:13px;line-height
     </div>
 
     <div class="roundmark plate" data-round aria-live="polite" aria-atomic="true"></div>
-    <div class="widget" id="widget" role="button" tabindex="0" aria-pressed="false" aria-label="ClaudeHP widget. Click to expand.">
+    <div class="widget open" id="widget" role="button" tabindex="0" aria-pressed="true" aria-label="ClaudeHP widget. Click to fold it to the session bar.">
       <div class="panel">
         <div class="row">
           <div class="bar" data-w="s"><i class="trail"></i><i class="fill"></i></div>
@@ -282,19 +285,19 @@ footer .fine{flex-basis:100%;max-width:var(--measure);font-size:13px;line-height
         </div>
         <div class="row">
           <div class="bar" data-w="w"><i class="trail"></i><i class="fill"></i></div>
-          <span class="lbl">Semaine 7j</span><span class="pc" data-wpct="w">80%</span>
-          <span class="tm">6j 2h</span><span class="rs">Reset</span>
+          <span class="lbl">Week 7d</span><span class="pc" data-wpct="w">80%</span>
+          <span class="tm">6d 2h</span><span class="rs">Reset</span>
         </div>
         <div class="row">
           <div class="bar" data-w="f"><i class="trail"></i><i class="fill"></i></div>
-          <span class="lbl">Fable 7j</span><span class="pc" data-wpct="f">82%</span>
-          <span class="tm">6j 2h</span><span class="rs">Reset</span>
+          <span class="lbl">Fable 7d</span><span class="pc" data-wpct="f">82%</span>
+          <span class="tm">6d 2h</span><span class="rs">Reset</span>
         </div>
       </div>
     </div>
   </div></div>
   <div class="caption">
-    <span>The widget floats above every window, at this exact size. Click it: it expands, like the real one. When the bar runs out, the window resets and a new round starts.</span>
+    <span>The widget floats above every window, at this exact size. Click it: it folds down to the session bar, like the real one. When the bar runs out, the window resets and a new round starts.</span>
     <span class="demo">demo · numbers are simulated</span>
   </div>
 </section>
@@ -315,7 +318,7 @@ footer .fine{flex-basis:100%;max-width:var(--measure);font-size:13px;line-height
 <section class="facts" aria-label="How it works">
   <div class="fact">
     <div class="plate">Three bars</div>
-    <p>5 hour session, weekly, and the weekly Fable window. Click to expand. If Anthropic adds a limit for another model, it shows up as its own bar. Nothing to recode.</p>
+    <p>5 hour session, weekly, and the weekly Fable window. Click to fold or expand. If Anthropic adds a limit for another model, it shows up as its own bar. Nothing to recode.</p>
   </div>
   <div class="fact">
     <div class="plate">Same numbers</div>

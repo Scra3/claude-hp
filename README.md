@@ -1,49 +1,53 @@
 # ClaudeHP
 
-Barre de vie Tekken pour ton quota Claude, posée sur le bureau.
+Your Claude usage as a Tekken health bar, sitting on your Mac desktop.
 
 ![bars](docs/bars.png)
 
-## Ce que ça montre
+## What it shows
 
-Les mêmes chiffres que `/usage`, lus sur `GET /api/oauth/usage` :
+The same numbers as `/usage`, read from `GET /api/oauth/usage`:
 
-| Barre | Source |
+| Bar | Source |
 |---|---|
 | `SESSION 5H` | `limits[kind=session]` |
-| `SEMAINE 7J` | `limits[kind=weekly_all]` |
-| `FABLE 7J` | `limits[kind=weekly_scoped]`, nommée d'après `scope.model.display_name` |
+| `WEEK 7D` | `limits[kind=weekly_all]` |
+| `FABLE 7D` | `limits[kind=weekly_scoped]`, named after `scope.model.display_name` |
 
-La barre affiche ce qu'il **reste**, pas ce qui est consommé : `/usage` dit « 18 % used »,
-la barre est à 82 %. Sous 20 % elle vire au rouge et pulse.
+The bar shows what is **left**, not what is used: `/usage` says "18% used", the bar
+sits at 82%. Under 20% it turns red and pulses.
 
-Toute nouvelle fenêtre `weekly_scoped` apparaît toute seule — rien à recoder si un
-autre modèle reçoit sa propre limite.
+Any new `weekly_scoped` window shows up on its own. Nothing to recode if another
+model gets its own limit.
 
-## Usage
+## Use
 
-- **Clic** : replie / déplie (compact = session seule, déplié = toutes les fenêtres)
-- **Glisser** : déplacer, la position est retenue
-- **Clic droit** : lancer au démarrage, quitter
-
-## Landing
-
-`site/index.html`, un seul fichier statique, aucune dépendance. Ouvre-le dans un navigateur ou déploie le dossier `site/` tel quel.
+- **Click** to fold and unfold (folded shows the session alone)
+- **Drag** to move it, the position is remembered
+- **Right click** for launch at login and quit
 
 ## Build
 
 ```sh
-./build.sh && open ClaudeHP.app
+git clone https://github.com/Scra3/claude-hp
+cd claude-hp && ./build.sh
+open ClaudeHP.app
 ```
 
-## Trousseau
+macOS 15, Swift 6.2 toolchain. One file, no Xcode project.
 
-L'app lit le jeton OAuth de Claude Code dans le trousseau (`Claude Code-credentials`)
-pour signer l'appel API. Le jeton n'est ni journalisé ni écrit sur disque.
+## Keychain
 
-macOS demande l'autorisation au premier lancement : clique **Toujours autoriser**.
-L'autorisation est liée à la signature du binaire — **chaque `./build.sh` la réinitialise**
-et le dialogue revient une fois.
+The app reads Claude Code's OAuth token from the keychain (`Claude Code-credentials`)
+to sign the API call. The token is never logged and never written to disk.
 
-Si le jeton expire sans qu'aucune session Claude Code ne le rafraîchisse, l'appel échoue
-et les barres passent en `EN ATTENTE` plutôt que d'afficher un chiffre périmé.
+macOS asks on first launch: click **Always Allow**. The grant is tied to the binary's
+signature, so **every `./build.sh` resets it** and the dialog comes back once.
+
+If the token expires with no Claude Code session around to refresh it, the call fails
+and the bars read `NO SIGNAL` rather than showing a stale number.
+
+## Landing page
+
+`site/index.html`, one static file, no dependencies. Open it in a browser or deploy
+the `site/` folder as is.
