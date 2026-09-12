@@ -1,3 +1,5 @@
 ClaudeHP.app/
-.impeccable/
+.impeccable/*
+!.impeccable/design.json
+!.impeccable/surfaces/
 .DS_Store

@@ -1,0 +1,193 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-09-12T00:00:00Z",
+  "title": "Design System: ClaudeHP",
+  "extensions": {
+    "colorMeta": {
+      "ground": { "role": "neutral", "displayName": "Cabinet Black", "canonical": "#0a0b0e", "source": "main.swift Ink.panel (0x0A0B0E)", "tonalRamp": ["#05060a", "#0a0b0e", "#121419", "#1b1e25", "#2e3238", "#4a4f58", "#7e838d", "#c3c7ce"] },
+      "ground-2": { "role": "neutral", "displayName": "Recessed Graphite", "canonical": "#121419", "tonalRamp": ["#07080a", "#0d0f13", "#121419", "#1d2029", "#2c3039", "#484d59", "#7b818f", "#c1c5cd"] },
+      "edge": { "role": "neutral", "displayName": "Hairline Edge", "canonical": "#2e3238", "source": "main.swift Ink.panelEdge (0x2E3238)", "tonalRamp": ["#0b0c0e", "#14161a", "#1f2226", "#2e3238", "#454a52", "#666c76", "#989ea8", "#cfd3d9"] },
+      "track-lo": { "role": "neutral", "displayName": "Track Shadow", "canonical": "#101216", "source": "main.swift Ink.trackLo (0x101216)", "tonalRamp": ["#050607", "#0a0b0e", "#101216", "#1a1d22", "#272b32", "#41464f", "#757b85", "#bfc3ca"] },
+      "track-hi": { "role": "neutral", "displayName": "Track Crest", "canonical": "#272b32", "source": "main.swift Ink.trackHi (0x272B32)", "tonalRamp": ["#0a0b0d", "#121419", "#1c1f24", "#272b32", "#3d424b", "#5f656f", "#939aa4", "#ccd0d6"] },
+      "chrome-lo": { "role": "neutral", "displayName": "Bevel Chrome", "canonical": "#5a606b", "source": "main.swift Ink.chromeLo (0x5A606B)", "tonalRamp": ["#14161a", "#22252a", "#31353c", "#43484f", "#5a606b", "#7d838d", "#a8adb5", "#d5d8dd"] },
+      "chrome-hi": { "role": "neutral", "displayName": "Bevel Highlight", "canonical": "#d8dee7", "source": "main.swift Ink.chromeHi (0xD8DEE7)", "tonalRamp": ["#1c2026", "#2c323b", "#414955", "#5a636f", "#7b8490", "#9ea6b1", "#c0c7d1", "#d8dee7"] },
+      "health-lo": { "role": "primary", "displayName": "Ember Amber", "canonical": "#ff8a14", "source": "main.swift Ink.healthLo (0xFF8A14)", "tonalRamp": ["#331a00", "#4d2800", "#803f00", "#b35700", "#e67200", "#ff8a14", "#ffab5c", "#ffd3ab"] },
+      "health-hi": { "role": "primary", "displayName": "Signal Yellow", "canonical": "#ffe968", "source": "main.swift Ink.healthHi (0xFFE968)", "tonalRamp": ["#332c00", "#4d4300", "#806f00", "#b39c00", "#e6c800", "#ffe968", "#fff0a0", "#fff8d2"] },
+      "tip": { "role": "primary", "displayName": "Filament White", "canonical": "#fff6d6", "source": "main.swift edge() 0xFFF6D6 at 0.95 alpha", "tonalRamp": ["#33301f", "#4d492e", "#807a4d", "#b3ab6b", "#e6dd94", "#fff2c4", "#fff6d6", "#fffbee"] },
+      "danger-lo": { "role": "secondary", "displayName": "Alarm Red", "canonical": "#e01b0c", "source": "main.swift Ink.dangerLo (0xE01B0C)", "tonalRamp": ["#2d0602", "#470a04", "#750f06", "#a31509", "#e01b0c", "#f3463a", "#f8837a", "#fcc2be"] },
+      "danger-hi": { "role": "secondary", "displayName": "Flare Orange", "canonical": "#ff6b3d", "source": "main.swift Ink.dangerHi (0xFF6B3D)", "tonalRamp": ["#33140a", "#4d1e0f", "#803219", "#b34623", "#e6592d", "#ff6b3d", "#ff9a7a", "#ffcdbd"] },
+      "trail-lo": { "role": "secondary", "displayName": "Damage Red", "canonical": "#9e1a11", "source": "main.swift Ink.trailLo (0x9E1A11)", "tonalRamp": ["#200507", "#3a0a08", "#5e100a", "#7f150e", "#9e1a11", "#cc3225", "#e0736a", "#f2bab5"] },
+      "trail-hi": { "role": "secondary", "displayName": "Hot Red", "canonical": "#ff3b2f", "source": "main.swift Ink.trailHi (0xFF3B2F)", "tonalRamp": ["#330b08", "#4d110c", "#801d14", "#b3281c", "#e63325", "#ff3b2f", "#ff7d74", "#ffc0bb"] },
+      "text": { "role": "neutral", "displayName": "Readout White", "canonical": "#f2f4f7", "source": "main.swift Ink.text (0xF2F4F7)", "tonalRamp": ["#1e2124", "#2f3338", "#464b52", "#636971", "#878d96", "#aeb3ba", "#d3d7dc", "#f2f4f7"] },
+      "dim": { "role": "neutral", "displayName": "Readout Dim", "canonical": "#8e96a3", "source": "main.swift Ink.textDim (0x8E96A3)", "tonalRamp": ["#171a1f", "#252930", "#373c45", "#4d535e", "#686f7b", "#8e96a3", "#b3b9c3", "#d9dce2"] },
+      "warn": { "role": "secondary", "displayName": "Warn Coral", "canonical": "#ff7a5c", "source": "main.swift Ink.textWarn (0xFF7A5C)", "tonalRamp": ["#331611", "#4d211a", "#80372b", "#b34d3c", "#e6634e", "#ff7a5c", "#ffa491", "#ffd1c6"] }
+    },
+    "typographyMeta": {
+      "display": { "displayName": "Countdown", "purpose": "The reset countdown, and nothing else. Tabular, italic, 800. Seconds ride as a dim small at ~38% of parent size." },
+      "headline": { "displayName": "Headline", "purpose": "The single page headline. It sits below the stage, never above the bar." },
+      "title": { "displayName": "Plate", "purpose": "HUD plates: gauge names, product name, fact titles. Condensed italic uppercase with a black text shadow so it survives sitting on a gauge." },
+      "body": { "displayName": "Prose", "purpose": "Everything said to a human. Plain system UI, capped at 62ch." },
+      "label": { "displayName": "Tracked Label", "purpose": "RESET, INSTALL, macOS · Swift. Wide tracking (+0.24em to +0.3em) is what separates a label from a plate. Never used as a kicker above a headline." },
+      "mono": { "displayName": "Machine Voice", "purpose": "Commands, terminal output, demo captions, and data keys at 0.72rem. Anything a machine said first." }
+    },
+    "shadows": [
+      { "name": "gauge-casing", "value": "inset 0 1.6px 0 #d8dee7, inset 0 0 0 2px #5a606b, inset 0 -6px 12px rgba(0,0,0,.55)", "purpose": "The 44px gauge's chrome bevel, inside a 2.5px solid black outer border." },
+      { "name": "gauge-casing-compact", "value": "inset 0 1.2px 0 #d8dee7, inset 0 0 0 1.5px #5a606b, inset 0 -4px 8px rgba(0,0,0,.55)", "purpose": "The 22px widget-row gauge, inside a 2px black border." },
+      { "name": "leading-edge-bloom", "value": "4px 0 12px 1px rgba(255,246,214,.5)", "purpose": "The only glow in the system. Rides the 3px near-white head of the fill. Compact variant: 3px 0 7px 0 rgba(255,246,214,.45)." },
+      { "name": "floating-panel", "value": "0 3px 12px rgba(0,0,0,.55), inset 0 0 0 1px #2e3238", "purpose": "The widget floating on the desktop stage. Mirrors the app's NSShadow (black 0.55, offset -3, blur 12)." },
+      { "name": "window-drop", "value": "0 22px 50px rgba(0,0,0,.6), inset 0 0 0 1px #262a32", "purpose": "The terminal window on the stage. Deepest shadow in the system; it exists to say this is a real window." },
+      { "name": "plate-text", "value": "0 1px 2px rgba(0,0,0,.85)", "purpose": "On every plate and numeral, matching the app's 2.5px-blur black text shadow." }
+    ],
+    "motion": [
+      { "name": "fill-ease", "value": "shown += (goal - shown) * 0.16", "purpose": "Per-frame approach of the gauge fill toward its target. App uses 0.18." },
+      { "name": "trail-lag", "value": "trail += (shown - trail) * 0.045", "purpose": "Per-frame approach of the red trail. Deliberately ~3.5x slower than the fill; the gap is the effect. App uses 0.055." },
+      { "name": "danger-pulse", "value": "brightness 1 to 1.22 over 1.1s ease-in-out infinite", "purpose": "Fires only when the gauge is under 20 percent. App equivalent: a 10 percent white blend driven by a sine." },
+      { "name": "panel-expand", "value": "clip-path .28s cubic-bezier(.2,.8,.2,1)", "purpose": "The widget unfolding from one row to three. Rows 2 and 3 fade in at .2s with .1s delay." },
+      { "name": "round-marker", "value": "opacity .25s, transform .25s; scale .92 to 1; held 1500ms", "purpose": "The ROUND N plate over the stage on reset." },
+      { "name": "reduced-motion", "value": "freeze drain, pulse, and panel transition; repaint countdown on a 1s interval", "purpose": "The whole authored moment stops under prefers-reduced-motion; the clock keeps telling the truth." }
+    ],
+    "breakpoints": [
+      { "name": "tight", "value": "1100px" },
+      { "name": "mobile", "value": "760px" },
+      { "name": "container", "value": "1440px" },
+      { "name": "prose-container", "value": "1120px" }
+    ],
+    "geometry": [
+      { "name": "shear", "value": "0.30", "purpose": "The only shear in the system. main.swift SHEAR = 0.30 (top edge displaced by 0.30 x height); the web equivalent is skewX(-16.7deg)." },
+      { "name": "widget-compact", "value": "500 x 82", "purpose": "The app panel at 1:1. Each extra gauge row adds 62px (ROW_PITCH)." }
+    ]
+  },
+  "components": [
+    {
+      "name": "Health Bar",
+      "kind": "custom",
+      "refersTo": "health-bar",
+      "description": "The signature component: a sheared gauge with a graphite striped track, a lagging red trail, an amber-to-yellow fill, a near-white leading edge, and a chrome bevel in a black border.",
+      "html": "<div class=\"ds-bar\" style=\"--h:64;--t:78\"><i class=\"ds-bar-trail\"></i><i class=\"ds-bar-fill\"></i><i class=\"ds-bar-notch\"></i></div>",
+      "css": ".ds-bar{position:relative;height:44px;width:100%;transform:skewX(-16.7deg);transform-origin:bottom left;border:2.5px solid #000;background:repeating-linear-gradient(45deg,rgba(255,255,255,.05) 0 1.5px,transparent 1.5px 9px),linear-gradient(0deg,var(--track-lo,#101216),var(--track-hi,#272b32));box-shadow:inset 0 1.6px 0 var(--chrome-hi,#d8dee7),inset 0 0 0 2px var(--chrome-lo,#5a606b),inset 0 -6px 12px rgba(0,0,0,.55);overflow:hidden}.ds-bar>i{position:absolute;inset:0;display:block}.ds-bar-trail{background:linear-gradient(0deg,var(--trail-lo,#9e1a11),var(--trail-hi,#ff3b2f));clip-path:inset(0 calc(100% - var(--t) * 1%) 0 0)}.ds-bar-fill{background:linear-gradient(90deg,var(--health-lo,#ff8a14),var(--health-hi,#ffe968));clip-path:inset(0 calc(100% - var(--h) * 1%) 0 0)}.ds-bar-fill::after{content:\"\";position:absolute;left:0;right:0;top:0;height:50%;background:linear-gradient(180deg,rgba(255,255,255,.30),rgba(255,255,255,.02))}.ds-bar-fill::before{content:\"\";position:absolute;top:0;bottom:0;width:3px;left:calc(var(--h) * 1%);transform:translateX(-100%);background:var(--tip,#fff6d6);box-shadow:4px 0 12px 1px rgba(255,246,214,.5)}.ds-bar-notch{position:absolute;left:20%;top:0;bottom:0;width:1.5px;background:rgba(255,255,255,.22)}.ds-bar-notch::after{content:\"\";position:absolute;bottom:0;left:-3px;border:4px solid transparent;border-bottom-color:rgba(255,255,255,.55);border-top:0}"
+    },
+    {
+      "name": "Health Bar (danger)",
+      "kind": "custom",
+      "refersTo": "health-bar-danger",
+      "description": "The same gauge under 20 percent: the fill swaps to alarm red to flare orange and pulses brightness. The only place red-as-fill is allowed.",
+      "html": "<div class=\"ds-bar ds-bar-danger\" style=\"--h:14;--t:31\"><i class=\"ds-bar-trail\"></i><i class=\"ds-bar-fill\"></i></div>",
+      "css": ".ds-bar{position:relative;height:44px;width:100%;transform:skewX(-16.7deg);transform-origin:bottom left;border:2.5px solid #000;background:repeating-linear-gradient(45deg,rgba(255,255,255,.05) 0 1.5px,transparent 1.5px 9px),linear-gradient(0deg,var(--track-lo,#101216),var(--track-hi,#272b32));box-shadow:inset 0 1.6px 0 var(--chrome-hi,#d8dee7),inset 0 0 0 2px var(--chrome-lo,#5a606b),inset 0 -6px 12px rgba(0,0,0,.55);overflow:hidden}.ds-bar>i{position:absolute;inset:0;display:block}.ds-bar-trail{background:linear-gradient(0deg,var(--trail-lo,#9e1a11),var(--trail-hi,#ff3b2f));clip-path:inset(0 calc(100% - var(--t) * 1%) 0 0)}.ds-bar-fill{background:linear-gradient(90deg,var(--health-lo,#ff8a14),var(--health-hi,#ffe968));clip-path:inset(0 calc(100% - var(--h) * 1%) 0 0)}.ds-bar-fill::before{content:\"\";position:absolute;top:0;bottom:0;width:3px;left:calc(var(--h) * 1%);transform:translateX(-100%);background:var(--tip,#fff6d6);box-shadow:4px 0 12px 1px rgba(255,246,214,.5)}.ds-bar-danger .ds-bar-fill{background:linear-gradient(90deg,var(--danger-lo,#e01b0c),var(--danger-hi,#ff6b3d));animation:ds-pulse 1.1s ease-in-out infinite}@keyframes ds-pulse{0%,100%{filter:brightness(1)}50%{filter:brightness(1.22)}}@media (prefers-reduced-motion:reduce){.ds-bar-danger .ds-bar-fill{animation:none}}"
+    },
+    {
+      "name": "Plate + Key Readout",
+      "kind": "custom",
+      "refersTo": "plate",
+      "description": "A gauge's caption line: a tracked condensed italic plate on the left, the value and the API key it came from on the right.",
+      "html": "<div class=\"ds-under\"><span class=\"ds-plate\">Session 5h</span><span class=\"ds-pct\"><span class=\"ds-num\">82%</span><span class=\"ds-key\">limits[kind=session]</span></span></div>",
+      "css": ".ds-under{display:flex;justify-content:space-between;align-items:baseline;padding:0 4px 0 2px;font-family:\"Barlow Condensed\",system-ui,sans-serif}.ds-plate{font-style:italic;font-weight:700;text-transform:uppercase;letter-spacing:.12em;line-height:1;font-size:22px;color:var(--text,#f2f4f7);text-shadow:0 1px 2px rgba(0,0,0,.85)}.ds-pct{display:flex;align-items:baseline;gap:12px}.ds-num{font-weight:800;font-style:italic;font-size:30px;line-height:1;letter-spacing:-.01em;font-variant-numeric:tabular-nums;color:var(--text,#f2f4f7);text-shadow:0 1px 2px rgba(0,0,0,.85)}.ds-key{font-family:ui-monospace,\"SF Mono\",Menlo,Consolas,monospace;font-style:normal;font-weight:400;letter-spacing:0;text-transform:none;color:var(--dim,#8e96a3);font-size:.72rem}"
+    },
+    {
+      "name": "Countdown",
+      "kind": "custom",
+      "refersTo": "plate-dim",
+      "description": "The oversized reset clock. Tabular condensed italic 800 with dim seconds and a tracked RESET label beneath.",
+      "html": "<div class=\"ds-timer\"><div class=\"ds-timer-num\">1:07<small>:12</small></div><div class=\"ds-timer-label\">Reset</div></div>",
+      "css": ".ds-timer{text-align:right;font-family:\"Barlow Condensed\",system-ui,sans-serif}.ds-timer-num{font-weight:800;font-style:italic;font-size:clamp(72px,9vw,124px);line-height:1;letter-spacing:-.01em;font-variant-numeric:tabular-nums;color:var(--text,#f2f4f7);text-shadow:0 1px 2px rgba(0,0,0,.85);display:flex;align-items:baseline;justify-content:flex-end}.ds-timer-num small{font-size:clamp(26px,3.4vw,47px);color:var(--dim,#8e96a3);margin-left:.08em;font-weight:700}.ds-timer-label{font-style:italic;font-weight:700;text-transform:uppercase;font-size:14px;color:var(--dim,#8e96a3);letter-spacing:.3em;line-height:1;margin-top:6px}"
+    },
+    {
+      "name": "Copy Control",
+      "kind": "button",
+      "refersTo": "copy-button",
+      "description": "The system's only button. Skewed chrome-stroked ghost that inverts to a yellow fill on hover; the label is counter-skewed so it reads level.",
+      "html": "<button type=\"button\" class=\"ds-btn-copy\"><span>Copy</span></button>",
+      "css": ".ds-btn-copy{font-family:\"Barlow Condensed\",system-ui,sans-serif;font-style:italic;font-weight:700;text-transform:uppercase;letter-spacing:.14em;font-size:13px;background:transparent;color:var(--health-hi,#ffe968);border:0;padding:8px 12px;cursor:pointer;transform:skewX(-16.7deg);box-shadow:inset 0 0 0 1.5px var(--chrome-lo,#5a606b)}.ds-btn-copy span{display:inline-block;transform:skewX(16.7deg)}.ds-btn-copy:hover{background:var(--health-hi,#ffe968);color:#0a0b0e;box-shadow:none}.ds-btn-copy:focus-visible{outline:2px solid var(--health-hi,#ffe968);outline-offset:3px}"
+    },
+    {
+      "name": "Install Block",
+      "kind": "card",
+      "refersTo": "install-block",
+      "description": "The primary call to action. A recessed mono well whose $ prompts are dim and unselectable, headed by a tracked label with a rule that pushes the copy control right.",
+      "html": "<div class=\"ds-install\"><div class=\"ds-install-head\">Install<button type=\"button\" class=\"ds-btn-copy\"><span>Copy</span></button></div><pre class=\"ds-install-pre\"><span class=\"c\">$ </span>git clone https://github.com/Scra3/claude-hp\n<span class=\"c\">$ </span>cd claude-hp &amp;&amp; ./build.sh\n<span class=\"c\">$ </span>open ClaudeHP.app</pre></div>",
+      "css": ".ds-install-head{font-family:\"Barlow Condensed\",system-ui,sans-serif;font-style:italic;font-weight:700;text-transform:uppercase;font-size:14px;color:var(--dim,#8e96a3);letter-spacing:.3em;margin-bottom:12px;display:flex;align-items:center;gap:14px}.ds-install-head::before{content:\"\";flex:1;height:1px;background:var(--edge,#2e3238);order:1}.ds-install-head .ds-btn-copy{order:2}.ds-install-pre{margin:0;padding:22px 24px 22px 26px;background:var(--ground-2,#121419);border-radius:6px;box-shadow:inset 0 0 0 1px var(--edge,#2e3238);font:14px/1.75 ui-monospace,\"SF Mono\",Menlo,Consolas,monospace;color:#e6e9ee;overflow-x:auto}.ds-install-pre .c{color:var(--dim,#8e96a3);user-select:none;-webkit-user-select:none}.ds-btn-copy{font-family:\"Barlow Condensed\",system-ui,sans-serif;font-style:italic;font-weight:700;text-transform:uppercase;letter-spacing:.14em;font-size:13px;background:transparent;color:var(--health-hi,#ffe968);border:0;padding:8px 12px;cursor:pointer;transform:skewX(-16.7deg);box-shadow:inset 0 0 0 1.5px var(--chrome-lo,#5a606b)}.ds-btn-copy span{display:inline-block;transform:skewX(16.7deg)}.ds-btn-copy:hover{background:var(--health-hi,#ffe968);color:#0a0b0e;box-shadow:none}"
+    },
+    {
+      "name": "Widget Panel",
+      "kind": "card",
+      "refersTo": "widget-panel",
+      "description": "The native macOS window at 1:1 (500 x 82 compact, 62px per extra row). Clipped to one row until opened; hover and focus brighten the inset stroke.",
+      "html": "<div class=\"ds-widget ds-widget-open\" tabindex=\"0\"><div class=\"ds-widget-panel\"><div class=\"ds-row\"><div class=\"ds-bar ds-bar-sm\" style=\"--h:82;--t:88\"><i class=\"ds-bar-trail\"></i><i class=\"ds-bar-fill\"></i></div><span class=\"ds-lbl\">Session 5h</span><span class=\"ds-pc\">82%</span><span class=\"ds-tm\">1:07</span><span class=\"ds-rs\">Reset</span></div></div></div>",
+      "css": ".ds-widget{position:relative;width:512px;height:80px;cursor:pointer;user-select:none}.ds-widget-panel{position:absolute;inset:6px;border-radius:5px;background:rgba(10,11,14,.99);background-image:linear-gradient(180deg,rgba(255,255,255,.06),rgba(255,255,255,0));box-shadow:0 3px 12px rgba(0,0,0,.55),inset 0 0 0 1px var(--edge,#2e3238);overflow:hidden;transition:clip-path .28s cubic-bezier(.2,.8,.2,1)}.ds-widget:hover .ds-widget-panel{box-shadow:0 3px 12px rgba(0,0,0,.55),inset 0 0 0 1px var(--chrome-lo,#5a606b)}.ds-widget:focus-visible{outline:2px solid var(--health-hi,#ffe968);outline-offset:-4px}.ds-row{position:absolute;left:14px;right:14px;top:10px;height:62px;font-family:\"Barlow Condensed\",system-ui,sans-serif}.ds-bar-sm{position:relative;height:22px;width:314px;transform:skewX(-16.7deg);transform-origin:bottom left;border:2px solid #000;background:repeating-linear-gradient(45deg,rgba(255,255,255,.05) 0 1.5px,transparent 1.5px 9px),linear-gradient(0deg,var(--track-lo,#101216),var(--track-hi,#272b32));box-shadow:inset 0 1.2px 0 var(--chrome-hi,#d8dee7),inset 0 0 0 1.5px var(--chrome-lo,#5a606b),inset 0 -4px 8px rgba(0,0,0,.55);overflow:hidden}.ds-bar-sm>i{position:absolute;inset:0;display:block}.ds-bar-trail{background:linear-gradient(0deg,var(--trail-lo,#9e1a11),var(--trail-hi,#ff3b2f));clip-path:inset(0 calc(100% - var(--t) * 1%) 0 0)}.ds-bar-fill{background:linear-gradient(90deg,var(--health-lo,#ff8a14),var(--health-hi,#ffe968));clip-path:inset(0 calc(100% - var(--h) * 1%) 0 0)}.ds-bar-fill::before{content:\"\";position:absolute;top:0;bottom:0;width:2.4px;left:calc(var(--h) * 1%);transform:translateX(-100%);background:var(--tip,#fff6d6);box-shadow:3px 0 7px 0 rgba(255,246,214,.45)}.ds-lbl,.ds-rs{font-style:italic;font-weight:700;text-transform:uppercase;letter-spacing:.15em;line-height:1;text-shadow:0 1px 2px rgba(0,0,0,.85);color:var(--text,#f2f4f7)}.ds-pc,.ds-tm{font-style:italic;font-weight:800;line-height:1;font-variant-numeric:tabular-nums;text-shadow:0 1px 2px rgba(0,0,0,.85);color:var(--text,#f2f4f7)}.ds-lbl{position:absolute;left:0;top:33px;font-size:14px}.ds-pc{position:absolute;left:284px;top:32px;font-size:17px;width:44px;text-align:right}.ds-tm{position:absolute;right:0;top:11px;font-size:34px;text-align:right}.ds-rs{position:absolute;right:0;top:41px;font-size:11px;color:var(--dim,#8e96a3);letter-spacing:.24em}"
+    },
+    {
+      "name": "Terminal Window",
+      "kind": "card",
+      "refersTo": "terminal-window",
+      "description": "The proof surface on the desktop stage. Soft-cornered window with drawn traffic dots and a block-character meter that mirrors the gauge numbers.",
+      "html": "<div class=\"ds-term\"><div class=\"ds-term-tb\"><i></i>claude</div><pre class=\"ds-term-pre\"><span class=\"p\">❯</span> /usage\n\n<span class=\"h\">Current session</span>\n<span class=\"m\">███<b>░░░░░░░░░░░░░░░░░</b></span>  18% used\n<span class=\"g\">Resets 12:20am (Europe/Paris)</span></pre></div>",
+      "css": ".ds-term{width:min(560px,100%);background:#15171d;border-radius:9px;box-shadow:0 22px 50px rgba(0,0,0,.6),inset 0 0 0 1px #262a32;font:13px/1.55 ui-monospace,\"SF Mono\",Menlo,Consolas,monospace;color:#c9cfd8;overflow:hidden}.ds-term-tb{height:34px;display:flex;align-items:center;padding:0 12px;gap:8px;background:#1c1f26;border-bottom:1px solid #262a32;color:#7f8794;font:500 12px/1 system-ui,-apple-system,sans-serif;justify-content:center;position:relative}.ds-term-tb i{position:absolute;left:12px;top:11px;width:12px;height:12px;border-radius:50%;background:#ff5f57;box-shadow:20px 0 0 #febc2e,40px 0 0 #28c840}.ds-term-pre{margin:0;padding:14px 18px;white-space:pre;font:inherit}.ds-term-pre .p{color:#7fd39a}.ds-term-pre .h{color:#f2f4f7;font-weight:700}.ds-term-pre .g{color:#8e96a3}.ds-term-pre .m{color:#a7a3ff;letter-spacing:-.05em}.ds-term-pre .m b{color:#5d5a9c;font-weight:400}"
+    },
+    {
+      "name": "Fact Row",
+      "kind": "custom",
+      "refersTo": "fact-row",
+      "description": "A hairline-ruled row: a plate column headed by a skewed amber chip (a health bar reduced to a bullet) beside a 62ch prose column.",
+      "html": "<div class=\"ds-fact\"><div class=\"ds-fact-plate\">Same numbers</div><p class=\"ds-fact-body\"><code>GET /api/oauth/usage</code>, the <code>limits[]</code> array. Exactly what <code>/usage</code> prints.</p></div>",
+      "css": ".ds-fact{display:grid;grid-template-columns:280px minmax(0,1fr);gap:24px 48px;align-items:baseline;padding:26px 0;border-top:1px solid var(--edge,#2e3238);border-bottom:1px solid var(--edge,#2e3238)}.ds-fact-plate{font-family:\"Barlow Condensed\",system-ui,sans-serif;font-style:italic;font-weight:700;text-transform:uppercase;letter-spacing:.12em;line-height:1;font-size:26px;color:var(--text,#f2f4f7);text-shadow:0 1px 2px rgba(0,0,0,.85);display:flex;align-items:center;gap:14px}.ds-fact-plate::before{content:\"\";width:22px;height:11px;background:linear-gradient(90deg,var(--health-lo,#ff8a14),var(--health-hi,#ffe968));transform:skewX(-16.7deg);box-shadow:inset 0 1px 0 var(--chrome-hi,#d8dee7),0 0 0 1.5px #000}.ds-fact-body{margin:0;color:#cfd5de;font:16px/1.55 system-ui,-apple-system,sans-serif;max-width:62ch}.ds-fact-body code{font-family:ui-monospace,\"SF Mono\",Menlo,Consolas,monospace;font-size:.92em;color:var(--text,#f2f4f7)}"
+    },
+    {
+      "name": "Round Marker",
+      "kind": "custom",
+      "refersTo": "plate",
+      "description": "The reset announcement: a skewed plate over the stage, underlined by an amber bar with a black outline, held 1.5s.",
+      "html": "<div class=\"ds-roundmark ds-roundmark-on\">Round 2</div>",
+      "css": ".ds-roundmark{position:relative;display:inline-block;font-family:\"Barlow Condensed\",system-ui,sans-serif;font-style:italic;font-weight:700;text-transform:uppercase;letter-spacing:.12em;line-height:1;font-size:clamp(56px,7vw,104px);color:var(--text,#f2f4f7);text-shadow:0 1px 2px rgba(0,0,0,.85);transform:skewX(-16.7deg) scale(.92);opacity:0;transition:opacity .25s,transform .25s;white-space:nowrap}.ds-roundmark-on{opacity:1;transform:skewX(-16.7deg) scale(1)}.ds-roundmark::after{content:\"\";position:absolute;left:-.3em;right:-.3em;bottom:-.14em;height:.08em;background:linear-gradient(90deg,var(--health-lo,#ff8a14),var(--health-hi,#ffe968));box-shadow:0 0 0 1.5px #000,inset 0 1px 0 var(--chrome-hi,#d8dee7)}@media (prefers-reduced-motion:reduce){.ds-roundmark{transition:none}}"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Versus Screen",
+    "overview": "ClaudeHP borrows the one interface every player reads without thinking: the fighting game health bar above the arena. The world is a matte black cabinet, and the only lit object on it is a sheared amber gauge with a chrome bevel and a red trail lagging behind the damage. Everything else in the system, body copy, terminal text, install block, is instrumentation around that gauge. The bar is not decoration on top of a product page; it is the page's first sentence.\n\nGround truth lives in the native app. main.swift's enum Ink and SHEAR = 0.30 define the palette and the geometry; the web tokens in site/index.html's :root were derived from them and agree value for value. Where the app and the web disagree, the app is the source of truth. One divergence stands on purpose: the app draws lettering in DINCondensed-Bold (a macOS system face, with a heavy system fallback), while the web ships Barlow Condensed 700/800 italic as a webfont because DIN Condensed is not available on the open web. Both read as the same condensed italic HUD voice; new web surfaces use Barlow Condensed.\n\nDensity is arcade, not editorial: the top band is loud and oversized, then the page drops to quiet system-UI prose at 17-19px with a 62ch measure. The system refuses the dev-tool landing grammar it was built against, headline over subtitle over screenshot card over three feature columns. Here the mechanism runs first, live, at full width, and the words arrive afterward.",
+    "keyCharacteristics": [
+      "Matte black ground (#0a0b0e), no page-level gradient, no ambient glow",
+      "Sheared parallelogram gauges (shear 0.30, equal to skewX(-16.7deg)), never rounded",
+      "One amber-to-yellow light source: the gauge and its near-white leading edge",
+      "Red trail that lags the drain; red-orange pulse under 20 percent",
+      "Condensed italic uppercase plates for every label and number; system UI for prose; system mono for commands and data keys",
+      "Every number carries the key it came from (limits[kind=session])"
+    ],
+    "rules": [
+      { "name": "The One Light Source Rule", "body": "The gauge's leading edge is the only thing in this world that glows. Every other shadow is diffuse black. No accent glow, no colored drop shadow, no neon outline anywhere else.", "section": "colors" },
+      { "name": "The Red Means Damage Rule", "body": "Red is never a brand color, a link, a button, or an error chrome. Red appears only where health was just lost (the trail) or is about to run out (the sub-20-percent fill). If a surface has no draining quantity, it has no red.", "section": "colors" },
+      { "name": "The Amber Floor Rule", "body": "Amber and yellow are confined to the gauge, the fact-row chips, and single-word emphasis. Amber never fills a card, a section band, or a page background.", "section": "colors" },
+      { "name": "The Plate Rule", "body": "Every HUD word is a plate: condensed, italic, uppercase, tracked, with a 0 1px 2px rgba(0,0,0,.85) shadow so it survives sitting directly on a gauge. Sentence-case condensed italic is not part of this system.", "section": "typography" },
+      { "name": "The Receipt Rule", "body": "A displayed number is followed by the key it came from, set in mono at 0.72rem in dim (limits[kind=session]). The claim and its source ship together or the number does not ship.", "section": "typography" },
+      { "name": "The Voice Rule", "body": "Copy is short and human. No dashes as connectors, no marketing formulas, no adjective stacking. Commands are the call to action; the install block is the button.", "section": "typography" },
+      { "name": "The Bar First Rule", "body": "Nothing renders above the health bar. No nav, no logo row, no announcement strip, no headline. The first painted object on any ClaudeHP surface is the gauge.", "section": "layout" },
+      { "name": "The Measure Rule", "body": "Prose never exceeds 62ch, no matter how wide the band is.", "section": "layout" },
+      { "name": "The Bevel Not Elevation Rule", "body": "Surfaces get depth from inset chrome strokes. Drop shadows are reserved for things that are literally floating in the depicted desktop: the widget and the terminal window. Cards, rows, and blocks stay flat on black with a hairline edge.", "section": "elevation" },
+      { "name": "The No Hard Offset Rule", "body": "Every shadow in this world is blurred and black. Hard offset shadows belong to a neobrutalist world; this one is a machined cabinet.", "section": "elevation" },
+      { "name": "The Shear Rule", "body": "0.30 is the only shear in this system. Nothing is skewed at a different angle, and nothing sheared is ever given a corner radius.", "section": "shapes" },
+      { "name": "The Shared Clock Rule", "body": "The hero gauge, the widget, and the terminal read from one state object and repaint in one frame. If a surface shows a number that also exists elsewhere on the page, it is the same number from the same tick or it does not ship.", "section": "components" },
+      { "name": "The One Authored Moment Rule", "body": "This system has exactly one motion idea: the drain, with its lagging trail, its red pulse under 20 percent, and its ROUND marker on reset. Under prefers-reduced-motion the drain stops, the pulse stops, the widget's expand transition drops, and the countdown keeps ticking on a 1s interval. No scroll reveals, no parallax, no entrance animations.", "section": "components" }
+    ],
+    "dos": [
+      "Do open every surface with the gauge. The bar is the first painted object, full width, before any word.",
+      "Do derive palette and geometry from main.swift (enum Ink, SHEAR = 0.30). The app is the source of truth; the web :root mirrors it.",
+      "Do pair every displayed number with its source key in dim mono (limits[kind=session]).",
+      "Do keep the trail slower than the fill (0.045 vs 0.16 web, 0.055 vs 0.18 app). The lag is the effect.",
+      "Do swap the fill to alarm-red and pulse below 20 percent, and nowhere else.",
+      "Do label simulated data plainly, in mono, next to the thing it describes (demo · numbers are simulated).",
+      "Do use the skewed chrome-stroked control as the button form, with counter-skewed label text.",
+      "Do cap prose at 62ch and set it in the plain system UI face at 17-19px.",
+      "Do honor prefers-reduced-motion by freezing the drain and the widget transition while the countdown keeps ticking."
+    ],
+    "donts": [
+      "Don't put a headline, nav, logo bar, or announcement strip above the health bar.",
+      "Don't round a sheared shape or shear anything at an angle other than 0.30.",
+      "Don't use red for links, buttons, brand marks, or error chrome. Red is damage.",
+      "Don't add a second light source. The leading edge glows; nothing else does.",
+      "Don't ship hard offset shadows. Shadows are blurred, black, and reserved for the widget and the terminal window.",
+      "Don't fill a card, band, or background with amber.",
+      "Don't float a tracked plate above a headline as a kicker or eyebrow. Plates label data, controls, and gauges.",
+      "Don't add a second motion idea. No scroll reveals, no parallax, no entrance animations.",
+      "Don't set condensed italic in sentence case, and don't set prose in the display face.",
+      "Don't use glyph icons or icon fonts. This system draws its own shapes (the chip, the notch, the traffic dots).",
+      "Don't mix languages in shipped copy. Web surfaces are English."
+    ]
+  }
+}

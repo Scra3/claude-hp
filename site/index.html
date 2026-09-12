@@ -1,0 +1,443 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ClaudeHP</title>
+<meta name="description" content="Your Claude usage as a Tekken health bar, sitting on your Mac desktop. Same numbers as /usage.">
+<meta property="og:title" content="ClaudeHP">
+<meta property="og:description" content="Your Claude usage as a Tekken health bar, sitting on your Mac desktop.">
+<meta name="theme-color" content="#0a0b0e">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,600;0,800;1,700;1,800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ground:#0a0b0e; --ground-2:#121419; --edge:#2e3238;
+  --track-lo:#101216; --track-hi:#272b32;
+  --chrome-hi:#d8dee7; --chrome-lo:#5a606b;
+  --health-lo:#ff8a14; --health-hi:#ffe968;
+  --danger-lo:#e01b0c; --danger-hi:#ff6b3d;
+  --trail-lo:#9e1a11; --trail-hi:#ff3b2f;
+  --tip:#fff6d6;
+  --text:#f2f4f7; --dim:#8e96a3; --warn:#ff7a5c;
+  --display:"Barlow Condensed",system-ui,sans-serif;
+  --body:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --mono:ui-monospace,"SF Mono",Menlo,Consolas,monospace;
+  --skew:-16.7deg;
+  --measure:62ch;
+}
+*{box-sizing:border-box;margin:0}
+html{background:var(--ground);color-scheme:dark}
+body{
+  background:var(--ground);color:var(--text);font-family:var(--body);
+  font-size:17px;line-height:1.5;-webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+::selection{background:var(--health-lo);color:#0a0b0e}
+::-webkit-scrollbar{width:10px}
+::-webkit-scrollbar-track{background:var(--ground)}
+::-webkit-scrollbar-thumb{background:var(--track-hi);border:2px solid var(--ground)}
+a{color:var(--health-hi);text-decoration:none;border-bottom:1px solid rgba(255,233,104,.35)}
+a:hover{border-bottom-color:var(--health-hi)}
+:focus-visible{outline:2px solid var(--health-hi);outline-offset:3px}
+code,kbd{font-family:var(--mono);font-size:.92em}
+
+.plate{
+  font-family:var(--display);font-style:italic;font-weight:700;
+  text-transform:uppercase;letter-spacing:.12em;line-height:1;
+  text-shadow:0 1px 2px rgba(0,0,0,.85);
+}
+.num{font-family:var(--display);font-weight:800;font-style:italic;line-height:1;letter-spacing:-.01em;font-variant-numeric:tabular-nums;text-shadow:0 1px 2px rgba(0,0,0,.85)}
+.key{font-family:var(--mono);font-style:normal;font-weight:400;letter-spacing:0;text-transform:none;color:var(--dim);font-size:.72rem}
+
+/* ---------- bar ---------- */
+.bar{
+  --h:82; --t:82;
+  position:relative;height:var(--bar-h,44px);
+  transform:skewX(var(--skew));transform-origin:bottom left;
+  border:2.5px solid #000;
+  background:
+    repeating-linear-gradient(45deg,rgba(255,255,255,.05) 0 1.5px,transparent 1.5px 9px),
+    linear-gradient(0deg,var(--track-lo),var(--track-hi));
+  box-shadow:inset 0 1.6px 0 var(--chrome-hi),inset 0 0 0 2px var(--chrome-lo),inset 0 -6px 12px rgba(0,0,0,.55);
+  overflow:hidden;
+}
+.bar>i{position:absolute;inset:0;display:block}
+.bar .trail{background:linear-gradient(0deg,var(--trail-lo),var(--trail-hi));clip-path:inset(0 calc(100% - var(--t) * 1%) 0 0)}
+.bar .fill{
+  background:linear-gradient(90deg,var(--health-lo),var(--health-hi));
+  clip-path:inset(0 calc(100% - var(--h) * 1%) 0 0);
+}
+.bar .fill::after{content:"";position:absolute;left:0;right:0;top:0;height:50%;background:linear-gradient(180deg,rgba(255,255,255,.30),rgba(255,255,255,.02))}
+.bar .fill::before{content:"";position:absolute;top:0;bottom:0;width:3px;left:calc(var(--h) * 1%);transform:translateX(-100%);background:var(--tip);box-shadow:4px 0 12px 1px rgba(255,246,214,.5)}
+.bar.danger .fill{background:linear-gradient(90deg,var(--danger-lo),var(--danger-hi));animation:pulse 1.1s ease-in-out infinite}
+.bar .notch{position:absolute;left:20%;top:0;bottom:0;width:1.5px;background:rgba(255,255,255,.22)}
+.bar .notch::after{content:"";position:absolute;bottom:0;left:-3px;border:4px solid transparent;border-bottom-color:rgba(255,255,255,.55);border-top:0}
+@keyframes pulse{0%,100%{filter:brightness(1)}50%{filter:brightness(1.22)}}
+
+/* ---------- HUD ---------- */
+.hud{
+  display:grid;grid-template-columns:minmax(0,1.35fr) auto minmax(0,.5fr);
+  align-items:end;gap:0 48px;
+  padding:56px clamp(20px,5vw,72px) 0;
+  max-width:1440px;margin:0 auto;
+}
+.hud-left{min-width:0}
+.hud-left .bar{--bar-h:44px;margin-left:8px}
+.under{display:flex;justify-content:space-between;align-items:baseline;margin-top:14px;padding:0 4px 0 2px}
+.under .plate{font-size:22px}
+.under .pct{display:flex;align-items:baseline;gap:12px}
+.under .pct .num{font-size:30px}
+.hud-timer{text-align:right;padding-bottom:2px}
+.hud-timer .num{font-size:clamp(72px,9vw,124px);display:flex;align-items:baseline;justify-content:flex-end}
+.hud-timer .num small{font-size:clamp(26px,3.4vw,47px);color:var(--dim);margin-left:.08em;font-weight:700}
+.hud-timer .plate{font-size:14px;color:var(--dim);letter-spacing:.3em;margin-top:6px}
+.hud-right{text-align:right;padding-bottom:6px}
+.hud-right .plate{font-size:22px}
+.hud-right .plate small{display:block;font-size:11px;color:var(--dim);letter-spacing:.3em;margin-top:8px}
+
+/* ---------- stage ---------- */
+.stage{margin:40px 0 0}
+.desktop{
+  position:relative;height:min(470px,46vw);overflow:hidden;
+  background:radial-gradient(120% 90% at 30% 10%,#1a1d26 0%,#0f1117 55%,#090a0d 100%);
+  border-top:1px solid var(--edge);border-bottom:1px solid var(--edge);
+}
+.desktop .inner{position:absolute;inset:0;max-width:1440px;margin:0 auto}
+.menubar{position:absolute;inset:0 0 auto 0;height:26px;background:rgba(20,22,28,.72);display:flex;align-items:center;gap:18px;padding:0 14px;font:600 12px/1 var(--body);color:#d6dae2}
+.menubar b{font-weight:800}
+.menubar span:last-child{margin-left:auto;font-variant-numeric:tabular-nums;color:#a9b0bd}
+
+.term{
+  position:absolute;left:clamp(20px,5vw,72px);top:70px;width:min(560px,58%);max-height:calc(100% - 96px);
+  background:#15171d;border-radius:9px;box-shadow:0 22px 50px rgba(0,0,0,.6),inset 0 0 0 1px #262a32;
+  font:13px/1.55 var(--mono);color:#c9cfd8;overflow:hidden;
+}
+.term .tb{height:34px;display:flex;align-items:center;padding:0 12px;gap:8px;background:#1c1f26;border-bottom:1px solid #262a32;color:#7f8794;font:500 12px/1 var(--body);justify-content:center;position:relative}
+.term .tb i{position:absolute;left:12px;top:11px;width:12px;height:12px;border-radius:50%;background:#ff5f57;box-shadow:20px 0 0 #febc2e,40px 0 0 #28c840}
+.term pre{margin:0;padding:14px 18px;white-space:pre;font:inherit}
+.term .p{color:#7fd39a}
+.term .h{color:#f2f4f7;font-weight:700}
+.term .g{color:#8e96a3}
+.term .m{color:#a7a3ff;letter-spacing:-.05em}
+.term .m b{color:#5d5a9c;font-weight:400}
+
+/* the real widget, 1:1 */
+.widget{
+  position:absolute;right:clamp(20px,5vw,72px);top:52px;width:512px;height:218px;cursor:pointer;
+  user-select:none;-webkit-user-select:none;
+}
+.widget .panel{
+  position:absolute;inset:6px;border-radius:5px;background:rgba(10,11,14,.99);
+  clip-path:inset(0 0 124px 0 round 5px);transition:clip-path .28s cubic-bezier(.2,.8,.2,1);
+  box-shadow:0 3px 12px rgba(0,0,0,.55),inset 0 0 0 1px var(--edge);
+  background-image:linear-gradient(180deg,rgba(255,255,255,.06),rgba(255,255,255,0));
+  overflow:hidden;
+}
+.widget .row{position:absolute;left:14px;right:14px;height:62px}
+.widget .row:nth-child(1){top:10px}
+.widget .row:nth-child(2){top:72px}
+.widget .row:nth-child(3){top:134px}
+.widget .row .bar{--bar-h:22px;width:314px;border-width:2px;box-shadow:inset 0 1.2px 0 var(--chrome-hi),inset 0 0 0 1.5px var(--chrome-lo),inset 0 -4px 8px rgba(0,0,0,.55)}
+.widget .row .bar .fill::before{width:2.4px;box-shadow:3px 0 7px 0 rgba(255,246,214,.45)}
+.widget .row .lbl{position:absolute;left:0;top:33px;font-size:14px}
+.widget .row .pc{position:absolute;left:284px;top:32px;font-size:17px;width:44px;text-align:right}
+.widget .row .tm{position:absolute;right:0;top:11px;font-size:34px;text-align:right}
+.widget .row .rs{position:absolute;right:0;top:41px;font-size:11px;color:var(--dim);letter-spacing:.24em}
+.widget .row:nth-child(n+2){opacity:0;transition:opacity .2s .1s}
+.widget.open .panel{clip-path:inset(0 0 0 0 round 5px)}
+.widget:hover .panel,.widget:focus-visible .panel{box-shadow:0 3px 12px rgba(0,0,0,.55),inset 0 0 0 1px var(--chrome-lo)}
+.widget:focus-visible{outline:2px solid var(--health-hi);outline-offset:-4px}
+.widget.open .row:nth-child(n+2){opacity:1}
+.widget .lbl,.widget .rs{font-family:var(--display);font-style:italic;font-weight:700;text-transform:uppercase;letter-spacing:.15em;line-height:1;text-shadow:0 1px 2px rgba(0,0,0,.85)}
+.widget .pc,.widget .tm{font-family:var(--display);font-style:italic;font-weight:800;line-height:1;text-shadow:0 1px 2px rgba(0,0,0,.85);font-variant-numeric:tabular-nums}
+
+.roundmark{position:absolute;left:50%;top:44%;transform:translate(-50%,-50%) skewX(var(--skew)) scale(.92);font-size:clamp(56px,7vw,104px);color:var(--text);opacity:0;pointer-events:none;transition:opacity .25s,transform .25s;white-space:nowrap}
+.roundmark.on{opacity:1;transform:translate(-50%,-50%) skewX(var(--skew)) scale(1)}
+.roundmark::after{content:"";position:absolute;left:-.3em;right:-.3em;bottom:-.14em;height:.08em;background:linear-gradient(90deg,var(--health-lo),var(--health-hi));box-shadow:0 0 0 1.5px #000,inset 0 1px 0 var(--chrome-hi)}
+.caption{display:flex;justify-content:space-between;gap:24px;margin:14px auto 0;max-width:1440px;padding:0 clamp(20px,5vw,72px);color:var(--dim);font-size:14px}
+.caption .demo{font-family:var(--mono);font-size:12px;letter-spacing:.02em}
+
+/* ---------- pitch ---------- */
+.pitch{max-width:1120px;margin:0 auto;padding:64px clamp(20px,5vw,72px) 0;display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:48px 72px;align-items:start}
+h1{font-family:var(--display);font-weight:800;font-style:italic;text-transform:uppercase;font-size:clamp(44px,5vw,68px);line-height:.92;letter-spacing:-.01em;text-wrap:balance}
+h1 em{font-style:italic;color:var(--health-hi)}
+.pitch p{margin-top:22px;max-width:var(--measure);color:#cfd5de;font-size:19px}
+.pitch p code{color:var(--text)}
+
+.install{position:relative}
+.install .plate{font-size:14px;color:var(--dim);letter-spacing:.3em;margin-bottom:12px;display:flex;align-items:center;gap:14px}
+.install .plate::before{content:"";flex:1;height:1px;background:var(--edge);order:1}
+.install .plate button{order:2}
+.install pre{
+  margin:0;padding:22px 24px 22px 26px;background:var(--ground-2);border-radius:6px;
+  box-shadow:inset 0 0 0 1px var(--edge);
+  font:14px/1.75 var(--mono);color:#e6e9ee;overflow-x:auto;
+}
+.install pre .c{color:var(--dim);user-select:none;-webkit-user-select:none}
+.install button{
+  font-family:var(--display);font-style:italic;font-weight:700;text-transform:uppercase;letter-spacing:.14em;font-size:13px;
+  background:transparent;color:var(--health-hi);border:0;padding:8px 12px;cursor:pointer;
+  transform:skewX(var(--skew));box-shadow:inset 0 0 0 1.5px var(--chrome-lo);
+}
+.install button span{display:inline-block;transform:skewX(calc(var(--skew) * -1))}
+.install button:hover{background:var(--health-hi);color:#0a0b0e;box-shadow:none}
+.install small{display:block;margin-top:14px;color:var(--dim);font-size:14px;line-height:1.55;max-width:var(--measure)}
+.install small b{color:var(--text);font-weight:600}
+
+/* ---------- facts ---------- */
+.facts{max-width:1120px;margin:0 auto;padding:56px clamp(20px,5vw,72px) 0}
+.fact{display:grid;grid-template-columns:280px minmax(0,1fr);gap:24px 48px;align-items:baseline;padding:26px 0;border-top:1px solid var(--edge)}
+.fact:last-child{border-bottom:1px solid var(--edge)}
+.fact .plate{font-size:26px;display:flex;align-items:center;gap:14px}
+.fact .plate::before{content:"";width:22px;height:11px;background:linear-gradient(90deg,var(--health-lo),var(--health-hi));transform:skewX(var(--skew));box-shadow:inset 0 1px 0 var(--chrome-hi),0 0 0 1.5px #000}
+.fact p{color:#cfd5de;font-size:16px;line-height:1.55;max-width:var(--measure)}
+.fact p code{color:var(--text)}
+
+footer{max-width:1120px;margin:0 auto;padding:112px clamp(20px,5vw,72px) 64px;display:flex;flex-wrap:wrap;gap:16px 40px;align-items:baseline;color:var(--dim);font-size:14px;border-top:1px solid var(--edge);margin-top:56px;padding-top:32px}
+footer .plate{font-size:18px;color:var(--text)}
+footer .fine{flex-basis:100%;max-width:var(--measure);font-size:13px;line-height:1.55}
+
+/* ---------- responsive ---------- */
+@media (max-width:1100px){
+  .hud{grid-template-columns:minmax(0,1fr) auto auto;gap:0 32px}
+  .widget{transform:scale(.82);transform-origin:top right}
+  .pitch{grid-template-columns:minmax(0,1fr)}
+}
+@media (max-width:760px){
+  .hud{grid-template-columns:minmax(0,1fr) auto;padding-top:40px;gap:0 24px}
+  .hud-left{grid-column:1/-1}
+  .hud-right{padding-bottom:10px}
+  .hud-right .plate{font-size:18px}
+  .hud-left .bar{--bar-h:34px;margin-right:12px}
+  .under{flex-wrap:wrap;gap:6px 16px}
+  .under .pct{flex-wrap:wrap;justify-content:flex-end;gap:4px 10px}
+  .caption{flex-wrap:wrap}
+  .hud-timer{text-align:left;margin-top:28px}
+  .hud-timer .num{justify-content:flex-start;font-size:clamp(64px,22vw,96px)}
+  .under .plate{font-size:18px}.under .pct .num{font-size:24px}
+  .desktop{height:540px}
+  .term{left:16px;right:16px;width:auto;top:118px;font-size:11.5px;max-height:calc(100% - 134px)}
+  .widget{transform:scale(.68);right:6px;top:34px}
+  .fact{grid-template-columns:minmax(0,1fr);gap:12px}
+  footer{padding-bottom:48px}
+}
+@media (prefers-reduced-motion:reduce){
+  .bar.danger .fill{animation:none}
+  .widget{transition:none}
+}
+</style>
+</head>
+<body>
+
+<header class="hud" aria-label="Session health">
+  <div class="hud-left">
+    <div class="bar" id="heroBar" role="meter" aria-label="Session remaining" aria-valuemin="0" aria-valuemax="100" aria-valuenow="82">
+      <i class="trail"></i><i class="fill"></i><i class="notch" aria-hidden="true"></i>
+    </div>
+    <div class="under">
+      <span class="plate">Session 5h</span>
+      <span class="pct"><span class="num" data-pct>82%</span><span class="key">limits[kind=session]</span></span>
+    </div>
+  </div>
+  <div class="hud-timer" aria-label="Time until the session resets">
+    <div class="num" data-count>1:07<small>:12</small></div>
+    <div class="plate">Reset</div>
+  </div>
+  <div class="hud-right">
+    <div class="plate">ClaudeHP<small>macOS · Swift</small></div>
+  </div>
+</header>
+
+<section class="stage" aria-label="The widget on a Mac desktop">
+  <div class="desktop"><div class="inner">
+    <div class="menubar" aria-hidden="true"><b></b><span>Terminal</span><span>Shell</span><span>Edit</span><span>View</span><span data-clock>Fri 21:43</span></div>
+    <div class="term" aria-hidden="true">
+      <div class="tb"><i></i>claude</div>
+<pre><span class="p">❯</span> /usage
+
+<span class="h">Current session</span>
+<span class="m" data-tbar="s"></span>  <span data-tpct="s">18</span>% used
+<span class="g">Resets 12:20am (Europe/Paris)</span>
+
+<span class="h">Current week (all models)</span>
+<span class="m" data-tbar="w"></span>  <span data-tpct="w">20</span>% used
+<span class="g">Resets Sep 18 at 1am (Europe/Paris)</span>
+
+<span class="h">Current week (Fable)</span>
+<span class="m" data-tbar="f"></span>  <span data-tpct="f">18</span>% used
+<span class="g">Resets Sep 18 at 12:59am (Europe/Paris)</span>
+
+<span class="p">❯</span> <span class="g">…and again in ten minutes.</span></pre>
+    </div>
+
+    <div class="roundmark plate" data-round aria-live="polite" aria-atomic="true"></div>
+    <div class="widget" id="widget" role="button" tabindex="0" aria-pressed="false" aria-label="ClaudeHP widget. Click to expand.">
+      <div class="panel">
+        <div class="row">
+          <div class="bar" data-w="s"><i class="trail"></i><i class="fill"></i></div>
+          <span class="lbl">Session 5h</span><span class="pc" data-wpct="s">82%</span>
+          <span class="tm" data-wtm="s">1:07</span><span class="rs">Reset</span>
+        </div>
+        <div class="row">
+          <div class="bar" data-w="w"><i class="trail"></i><i class="fill"></i></div>
+          <span class="lbl">Semaine 7j</span><span class="pc" data-wpct="w">80%</span>
+          <span class="tm">6j 2h</span><span class="rs">Reset</span>
+        </div>
+        <div class="row">
+          <div class="bar" data-w="f"><i class="trail"></i><i class="fill"></i></div>
+          <span class="lbl">Fable 7j</span><span class="pc" data-wpct="f">82%</span>
+          <span class="tm">6j 2h</span><span class="rs">Reset</span>
+        </div>
+      </div>
+    </div>
+  </div></div>
+  <div class="caption">
+    <span>The widget floats above every window, at this exact size. Click it: it expands, like the real one. When the bar runs out, the window resets and a new round starts.</span>
+    <span class="demo">demo · numbers are simulated</span>
+  </div>
+</section>
+
+<section class="pitch">
+  <div>
+    <h1>Your Claude usage as a <em>Tekken</em> health bar, on your desktop.</h1>
+  </div>
+  <div class="install">
+    <div class="plate">Install<button type="button" id="copy" aria-label="Copy the install commands"><span>Copy</span></button></div>
+    <pre id="cmd"><span class="c">$ </span>git clone https://github.com/Scra3/claude-hp
+<span class="c">$ </span>cd claude-hp &amp;&amp; ./build.sh
+<span class="c">$ </span>open ClaudeHP.app</pre>
+    <small>macOS 15. First launch asks for keychain access to your Claude Code token. Click <b>Always Allow</b>. The token only signs the usage call; it is never logged or written to disk.</small>
+  </div>
+</section>
+
+<section class="facts" aria-label="How it works">
+  <div class="fact">
+    <div class="plate">Three bars</div>
+    <p>5 hour session, weekly, and the weekly Fable window. Click to expand. If Anthropic adds a limit for another model, it shows up as its own bar. Nothing to recode.</p>
+  </div>
+  <div class="fact">
+    <div class="plate">Same numbers</div>
+    <p><code>GET /api/oauth/usage</code>, the <code>limits[]</code> array. Exactly what <code>/usage</code> prints. Under 20% the bar goes red and pulses. If the call fails it says so instead of showing a stale number.</p>
+  </div>
+  <div class="fact">
+    <div class="plate">One file</div>
+    <p>One Swift file, no Xcode project, built with <code>swiftc</code>. Fork it, change the colors, make it yours.</p>
+  </div>
+</section>
+
+<footer>
+  <a class="plate" href="https://github.com/Scra3/claude-hp">Source on GitHub</a>
+  <span>Made by Alban Bertolini</span>
+  <span class="fine">The numbers on this page are simulated to show the bar draining. Not affiliated with Anthropic or Bandai Namco.</span>
+</footer>
+
+<script>
+(() => {
+  const $ = (s, r = document) => r.querySelector(s);
+  const $$ = (s, r = document) => [...r.querySelectorAll(s)];
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  const state = { s: 82, w: 80, f: 82 };
+  const shown = { s: 82, w: 80, f: 82 };
+  const trail = { s: 82, w: 80, f: 82 };
+  let resetAt = Date.now() + (67 * 60 + 12) * 1000;
+
+  const hero = $('#heroBar');
+  const wbars = Object.fromEntries($$('.widget .bar').map(b => [b.dataset.w, b]));
+  const tbars = Object.fromEntries($$('[data-tbar]').map(b => [b.dataset.tbar, b]));
+
+  const setBar = (el, h, t) => {
+    el.style.setProperty('--h', h.toFixed(2));
+    el.style.setProperty('--t', t.toFixed(2));
+    el.classList.toggle('danger', h < 20);
+  };
+  const termBar = (pct) => {
+    const used = Math.round((100 - pct) / 5);
+    return '█'.repeat(used) + '<b>' + '░'.repeat(20 - used) + '</b>';
+  };
+  const fmt = (ms) => {
+    const s = Math.max(0, Math.floor(ms / 1000));
+    const h = Math.floor(s / 3600), m = Math.floor((s % 3600) / 60), sec = s % 60;
+    return [`${h}:${String(m).padStart(2, '0')}`, `:${String(sec).padStart(2, '0')}`];
+  };
+
+  function paint() {
+    setBar(hero, shown.s, trail.s);
+    hero.setAttribute('aria-valuenow', Math.round(shown.s));
+    $('[data-pct]').textContent = Math.round(shown.s) + '%';
+    for (const k of ['s', 'w', 'f']) {
+      setBar(wbars[k], shown[k], trail[k]);
+      $(`[data-wpct="${k}"]`).textContent = Math.round(shown[k]) + '%';
+      tbars[k].innerHTML = termBar(shown[k]);
+      $(`[data-tpct="${k}"]`).textContent = 100 - Math.round(shown[k]);
+    }
+    const [hm, ss] = fmt(resetAt - Date.now());
+    $('[data-count]').innerHTML = `${hm}<small>${ss}</small>`;
+    $('[data-wtm="s"]').textContent = hm;
+  }
+
+  let holdUntil = 0, round = 1;
+  const mark = $('[data-round]');
+  function hit(now) {
+    if (now < holdUntil) return;
+    if (state.s <= 8) { holdUntil = now + 3200; state.s = -1; return; }
+    if (state.s < 0) {
+      Object.assign(state, { s: 100 });
+      Object.assign(shown, { s: 100 }); Object.assign(trail, { s: 100 });
+      resetAt = Date.now() + 5 * 3600 * 1000;
+      holdUntil = now + 1800;
+      round += 1;
+      mark.textContent = `Round ${round}`;
+      mark.classList.add('on');
+      setTimeout(() => mark.classList.remove('on'), 1500);
+      return;
+    }
+    const dmg = 2 + Math.random() * 7;
+    state.s = Math.max(0, state.s - dmg);
+    state.w = Math.max(40, state.w - dmg * 0.18);
+    state.f = Math.max(40, state.f - dmg * 0.22);
+    holdUntil = now + 900 + Math.random() * 1600;
+    resetAt -= Math.random() * 4 * 60 * 1000;
+  }
+
+  function tick(now) {
+    if (!reduce) hit(now);
+    for (const k of ['s', 'w', 'f']) {
+      const goal = state[k] < 0 ? 0 : state[k];
+      shown[k] += (goal - shown[k]) * 0.16;
+      if (trail[k] < shown[k]) trail[k] = shown[k];
+      trail[k] += (shown[k] - trail[k]) * 0.045;
+    }
+    paint();
+    requestAnimationFrame(tick);
+  }
+
+  if (reduce) { paint(); setInterval(paint, 1000); } else requestAnimationFrame(tick);
+
+  const widget = $('#widget');
+  const toggle = () => {
+    const open = widget.classList.toggle('open');
+    widget.setAttribute('aria-pressed', String(open));
+  };
+  widget.addEventListener('click', toggle);
+  widget.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggle(); } });
+
+  $('#copy').addEventListener('click', async (e) => {
+    const text = $('#cmd').innerText.replace(/^\$ /gm, '');
+    const btn = e.currentTarget, label = btn.firstElementChild;
+    try { await navigator.clipboard.writeText(text.trim()); label.textContent = 'Copied'; }
+    catch { label.textContent = 'Select it'; }
+    setTimeout(() => label.textContent = 'Copy', 1600);
+  });
+
+  const clock = $('[data-clock]');
+  const tickClock = () => {
+    clock.textContent = new Date().toLocaleString('en-US', { weekday: 'short', hour: '2-digit', minute: '2-digit', hour12: false });
+  };
+  tickClock(); setInterval(tickClock, 20000);
+})();
+</script>
+</body>
+</html>

@@ -26,6 +26,10 @@ autre modèle reçoit sa propre limite.
 - **Glisser** : déplacer, la position est retenue
 - **Clic droit** : lancer au démarrage, quitter
 
+## Landing
+
+`site/index.html`, un seul fichier statique, aucune dépendance. Ouvre-le dans un navigateur ou déploie le dossier `site/` tel quel.
+
 ## Build
 
 ```sh
