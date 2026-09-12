@@ -211,6 +211,11 @@ h1 em{font-style:italic;color:var(--health-hi)}
 
 footer{max-width:1120px;margin:0 auto;padding:112px clamp(20px,5vw,72px) 64px;display:flex;flex-wrap:wrap;gap:16px 40px;align-items:baseline;color:var(--dim);font-size:14px;border-top:1px solid var(--edge);margin-top:56px;padding-top:32px}
 footer .plate{font-size:18px;color:var(--text)}
+footer .also{flex-basis:100%;display:flex;align-items:baseline;gap:14px;margin-top:26px;padding-top:22px;border-top:1px solid var(--edge)}
+footer .also .plate{font-size:15px;color:var(--dim);letter-spacing:.3em;flex:none}
+footer .also a{border:0;color:var(--text);font-family:var(--display);font-style:italic;font-weight:700;text-transform:uppercase;letter-spacing:.1em;font-size:20px;text-shadow:0 1px 2px rgba(0,0,0,.85)}
+footer .also a:hover{color:var(--health-hi)}
+footer .also span{color:var(--dim);font-size:14px}
 footer .fine{flex-basis:100%;max-width:var(--measure);font-size:13px;line-height:1.55}
 
 /* ---------- responsive ---------- */
@@ -220,6 +225,7 @@ footer .fine{flex-basis:100%;max-width:var(--measure);font-size:13px;line-height
   .pitch{grid-template-columns:minmax(0,1fr)}
 }
 @media (max-width:760px){
+  footer .also{flex-wrap:wrap;gap:8px 12px}
   .hud{grid-template-columns:minmax(0,1fr) auto;padding-top:40px;gap:0 24px}
   .hud-left{grid-column:1/-1}
   .hud-right{padding-bottom:10px}
@@ -345,6 +351,11 @@ footer .fine{flex-basis:100%;max-width:var(--measure);font-size:13px;line-height
   <a class="plate" href="https://github.com/Scra3/claude-hp">Source on GitHub</a>
   <span>Made by Alban Bertolini</span>
   <span class="fine">The numbers on this page are simulated to show the bar draining. Not affiliated with Anthropic or Bandai Namco.</span>
+  <div class="also">
+    <span class="plate">Also mine</span>
+    <a href="https://heymossy.com">Mossy</a>
+    <span>A little plant in the corner of your Mac. It wilts while you work, then offers you a short break.</span>
+  </div>
 </footer>
 
 <script>
